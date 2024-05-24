@@ -7,7 +7,7 @@ A primitive Raytracing model for the Photorealistic graphics course. It runs on 
 `-h | --height` - overwrites ResolutionHeight of the scene's camera    
 `-s | --samples` - overwrites SamplesPerPixel of the scene's camera  
 `-o | --output` - path to the output image -- (Default: "./Outputs/demo.pfm")  
-`-c | --config` - path to the configuration json file -- (Default: "./Properties/Checkpoint4.json")  
+`-c | --config` - path to the configuration json file -- (Default: "./Properties/config.json")  
 `-t | --trace` - Trace scene's JSON deserialization
 
 ### Configuration arguments
