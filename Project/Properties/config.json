@@ -1,0 +1,92 @@
+{
+  "Author": "Adam Balko",
+  "Renderer": {"Tag": "RAYCAST"},
+  "Brdf": {"Tag": "PHONG"},
+  "Scene": {
+    "BackgroundColor": {"X": 0.16, "Y": 0.2, "Z": 0.27},
+    "AmbientColor": {"X": 0.1, "Y": 0.1, "Z": 0.025},
+    "Camera": {
+      "Position": {"X": -8, "Y": 5, "Z": -10},
+      "Forward": {"X": 0.2, "Y": -0.1, "Z": 0.5},
+      "Up": {"X": 0, "Y": 1, "Z": 0.02},
+      "ScreenDistance": 1,
+      "ViewingDistance": 1000,
+      "Fov": 90,
+      "SamplesPerPixel": 50
+    },
+    "LightSources": [
+      {
+        "Tag": "POINT",
+        "Position": {"X": -5, "Y": 6, "Z": 12},
+        "BaseColor": {"X": 1, "Y": 1, "Z": 1},
+        "Intensity": 1
+      },
+      {
+        "Tag": "POINT",
+        "Position": {"X": 5, "Y": 3, "Z": 10},
+        "BaseColor": {"X": 0.2, "Y": 0.7, "Z": 1},
+        "Intensity": 0.8
+      }
+    ],
+    "Solids": [
+      {
+        "Tag": "RECTANGLE",
+        "Position": {"X": 0, "Y": 0, "Z": 15},
+        "Normal": {"X": 0, "Y": 1, "Z": 0},
+        "WidthAxis": {"X": 1, "Y": 0, "Z": 0},
+        "Width": 15,
+        "Height": 10,
+        "MaterialTag": "Plastic"
+      },
+      {
+        "Tag": "RECTANGLE",
+        "Position": {"X": 15, "Y": 0, "Z": 25},
+        "Normal": {"X": -2, "Y": 0, "Z": -1},
+        "WidthAxis": {"X": 1, "Y": 1, "Z": -2},
+        "Width": 6,
+        "Height": 4,
+        "MaterialTag": "Chrome"
+      },
+      {
+        "Tag": "SPHERE",
+        "Position": {"X": 0, "Y": 3, "Z": 17},
+        "Radius": 2.5,
+        "MaterialTag": "Silver"
+      }
+    ]
+  },
+  "Materials": [
+    {
+      "Name": "Plastic",
+      "DiffuseColor": {"X": 1, "Y": 1, "Z": 0.2},
+      "kDiffuse": 0.5,
+      "kSpecular": 0.4,
+      "KAmbient": 0.1,
+      "Shininess": 10
+    },
+    {
+      "Name": "Chrome",
+      "DiffuseColor": {"X": 0.3, "Y": 0.3, "Z": 0.3},
+      "kDiffuse": 0.15,
+      "kSpecular": 0.8,
+      "KAmbient": 0.1,
+      "Shininess": 80
+    },
+    {
+      "Name": "Stone",
+      "DiffuseColor": {"X": 0.87, "Y": 0.83, "Z": 0.79},
+      "kDiffuse": 0.9,
+      "kSpecular": 0.1,
+      "KAmbient": 0,
+      "Shininess": 5
+    },
+    {
+      "Name": "Silver",
+      "DiffuseColor": {"X": 0.9, "Y": 0.9, "Z": 0.9},
+      "kDiffuse": 0.2,
+      "kSpecular": 0.7,
+      "KAmbient": 0.1,
+      "Shininess": 50
+    }
+  ]
+}
