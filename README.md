@@ -27,7 +27,7 @@ Tag: `RAYTRACE` - model based on recursive following of reflected and refracted 
 
 #### Available BRDFs
 Tag: `PHONG` - Phong's model  
-Tag: `MICROFACET` - Microfacet model introduced by Cook and Torrance. Functions used by the model must be specified
+Tag: `MICROFACET` - [Microfacet model](https://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models#eq:microfacet-g1) introduced by Cook and Torrance. Functions used by the model must be specified
 * `FresnelFunction` - available are `Schlicks`
 * `DistributionFunction` - available are `BlinnPhong`, `TrowbridgeReitz`, `GGX`
 * `GeometryFunction` - available are `Beckmann` for use with `BlinnPhong` distribution, and `GGX` for use with `GGX` and `TrowbridgeReitz` ditribution functions.
