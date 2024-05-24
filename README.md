@@ -1,11 +1,13 @@
 # Documentation
 
+A primitive Raytracing model for the Photorealistic graphics course. It runs on CPU, but support for multithreading is planned. The renderer supports reflections, refractions, thrown shadows and diffuse light. The reflectance model can be chosen between Phong and Mirofacet with variance of distribution and geometric functions. The scene is defined in a specified JSON file. Example of it's use can be found in Project/Properties. FloatImage class in the shared folder was provided by lecturers for this assignment.
+
 ### Command line arguments
 `-w | --width` - overwrites ResolutionWidth of the scene's camera  
 `-h | --height` - overwrites ResolutionHeight of the scene's camera    
 `-s | --samples` - overwrites SamplesPerPixel of the scene's camera  
 `-o | --output` - path to the output image -- (Default: "./Outputs/demo.pfm")  
-`-c | --config` - path to the configuration json file -- (Default: "./Properties/config.json")  
+`-c | --config` - path to the configuration json file -- (Default: "./Properties/Checkpoint4.json")  
 `-t | --trace` - Trace scene's JSON deserialization
 
 ### Configuration arguments
@@ -40,8 +42,8 @@ Tag: `MICROFACET` - [Microfacet model](https://www.pbr-book.org/3ed-2018/Reflect
 * `Position` - World coordinates of the camera
 * `Forward` - Direction of the Camera's Z Axis
 * `Up` - Vector perpendicular to `Forward`, direction of the Camera's Y Axis
-* `ScreenDistance` - Nearest side of the camera's frustum (Doesn't work yet)
-* `ViewingDistance` - Farthest side of the camera's frustum (Doesn't work yet)
+* `ScreenDistance` - Nearest side of the camera's frustum -- (Not yet implemented)
+* `ViewingDistance` - Farthest side of the camera's frustum -- (Not yet implemented)
 * `ResolutionWidth` - Number of pixels generated along the Camera's X Axis
 * `ResolutionHeight` - Number of pixels generated along the Camera's Y Axis
 * `Fov` - Field of view in degrees
