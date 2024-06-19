@@ -18,31 +18,15 @@ public class RayTracingRenderer : IRenderer
     private Scene _scene;
     private Brdf _brdf;
     
-    public FloatImage Render(Scene scene, Brdf brdf)
+    public void Initialize(Configuration config)
     {
-        _scene = scene;
-        _brdf = brdf;
-        
-        var camera = scene.Camera;
-        
-        var image = new FloatImage(camera.ResolutionWidth, camera.ResolutionHeight, 3);
-        List<RayBatch> rayBatches = camera.GenerateRays();
-
-        foreach (var batch in rayBatches)
-        {
-            float[] color = GetPixelColor(batch);
-            image.PutPixel(batch.PixelX, batch.PixelY, color);
-        }
-
-        return image;
+        _scene = config.Scene;
+        _brdf = config.Brdf;
     }
     
-    private float[] GetPixelColor(RayBatch rayBatch)
+    public float[] GetPixelColor(RayBatch rayBatch)
     {
         List<Color3<Rgb>> rayColors = new();
-
-        // if (rayBatch.PixelX == 362 && rayBatch.PixelY == 114)
-        //     Console.WriteLine("Debugging");
         
         foreach (var ray in rayBatch.Rays)
         {
