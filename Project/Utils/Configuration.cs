@@ -35,6 +35,7 @@ public class Configuration
         }
 
         configuration.Scene.Iniitialize(configuration);
+        configuration.Renderer.Initialize(configuration);
         return configuration;
     }
 
