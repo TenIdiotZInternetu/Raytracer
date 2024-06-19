@@ -50,9 +50,9 @@ public class Camera
         SamplesPerPixel = samplesPerPixel;
     }
     
-    public List<RayBatch> GenerateRays()
+    public RayBatch[,] GenerateRays()
     {
-        var rayBatches = new List<RayBatch>();
+        var rayBatches = new RayBatch[ResolutionWidth, ResolutionHeight];
 
         if (!_isInitialized) Initialiaze();
         
@@ -62,7 +62,7 @@ public class Camera
             
             int screenSpaceY = ResolutionHeight - pixel.YInt();             // Since (0, 0) is the top left corner of the screen
             var batch = new RayBatch(rays, pixel.XInt(), screenSpaceY);
-            rayBatches.Add(batch);
+            rayBatches[pixel.XInt(), pixel.YInt()] = batch;
         }
 
         return rayBatches;
