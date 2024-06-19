@@ -25,7 +25,7 @@ internal class Program
         if (o.ResolutionSet) scene.Camera.SetResolution(o.Width, o.Height);
         if (o.SamplesSet) scene.Camera.SetSamples(o.SamplesPerPixel);
 
-        FloatImage image = ImageProcessor.Render(config, o.UseParallel);
+        FloatImage image = ImageProcessor.Render(config, !o.DontUseParallel);
         image.SavePFM(o.OutputFile);
         
         Console.WriteLine($"HDR image '{o.OutputFile}' is finished.");

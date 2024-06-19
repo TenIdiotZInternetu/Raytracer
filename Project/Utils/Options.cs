@@ -22,8 +22,8 @@ public class Options
     [Option('t', "trace", Required = false, Default = false, HelpText = "Trace JSON deserialization")]
     public bool JsonTrace { get; set; }
     
-    [Option('p', "parallel", Required = false, Default = true, HelpText = "Turn on parallel ray processing")]
-    public bool UseParallel { get; set; }
+    [Option('p', "parallel", Required = false, HelpText = "Turn on parallel ray processing")]
+    public bool DontUseParallel { get; set; }
     
     public bool ResolutionSet => Width > 0 && Height > 0;
     public bool SamplesSet => SamplesPerPixel > 0;
