@@ -60,9 +60,9 @@ public class Camera
         {
             Ray[] rays = GenerateRaysInPixel(pixel);
             
-            int screenSpaceY = ResolutionHeight - pixel.YInt();             // Since (0, 0) is the top left corner of the screen
+            int screenSpaceY = ResolutionHeight - pixel.YInt() - 1;             // Since (0, 0) is the top left corner of the screen
             var batch = new RayBatch(rays, pixel.XInt(), screenSpaceY);
-            rayBatches[pixel.XInt(), pixel.YInt()] = batch;
+            rayBatches[batch.PixelX, batch.PixelY] = batch;
         }
 
         return rayBatches;
