@@ -10,8 +10,7 @@ public static class Parallelism
         int chunksOnRow = (rowWidth / chunkSize) + 1;
         int chunksOnCol = (colHeight / chunkSize) + 1;
         
-        T[][] chunks = new T[chunksOnCol * chunksOnRow][];
-        Array.Fill(chunks, new T[chunkSize * chunkSize]);
+        T[][] chunks = InitJagged<T>(chunksOnCol * chunksOnRow, chunkSize * chunkSize);
 
         foreach (var itemPos in VectorHelper.IterateRectangle(rowWidth, colHeight))
         {
@@ -23,10 +22,22 @@ public static class Parallelism
             int chunkOffsetY = itemPos.YInt() % chunkSize;
             int chunkOffset = chunkOffsetY * chunkSize + chunkOffsetX;
             
-             T item = collection2D[itemPos.XInt(), itemPos.YInt()];
-             chunks[chunkIndex][chunkOffset] = item;
+            T item = collection2D[itemPos.XInt(), itemPos.YInt()];
+            chunks[chunkIndex][chunkOffset] = item;
         }
 
         return chunks;
+    }
+
+    private static T[][] InitJagged<T>(int dim0, int dim1)
+    {
+        T[][] array = new T[dim0][];
+        
+        for (int i = 0; i < dim0; i++)
+        {
+            array[i] = new T[dim1];
+        }
+
+        return array;
     }
 }
