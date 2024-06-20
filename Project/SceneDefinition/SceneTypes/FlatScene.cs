@@ -3,27 +3,27 @@ using OpenTK;
 using rt004.Optics;
 using rt004.Optics.BRDF;
 using rt004.Optics.LightSources;
+using rt004.SceneDefinition.SceneTypes;
 using rt004.SceneDefinition.Solids;
 using rt004.Utils;
 using Util;
 
 namespace rt004.SceneDefinition;
 
-public class Scene
+public class FlatScene : IScene
 {
     private const float EPSILON = 1e-3f;
     [JsonProperty] public Color3<Rgb> BackgroundColor { get; init; }
-    [JsonProperty] public Color3<Rgb> AmbientColor { get; init; }
     
     [JsonProperty] public Camera Camera { get; init; }
     [JsonProperty] public List<ILightSource> LightSources { get; init; }
     [JsonProperty] public List<Solid> Solids { get; init; }
 
-    public void Iniitialize(Configuration config)
+    public void Initialize(Configuration config)
     {
         AssignMaterials(config.Materials);
     }
-    
+
     public Intersection? FindIntersection(Ray ray)
     {
         Intersection? closestIntersection = null;
@@ -42,7 +42,17 @@ public class Scene
         
         return closestIntersection;
     }
-    
+
+    public bool IntersectsWithScene(Ray ray)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ILightSource[] GetLights()
+    {
+        return LightSources.ToArray();
+    }
+
     private void AssignMaterials(List<Material> materials)
     {
         foreach (var solid in Solids)

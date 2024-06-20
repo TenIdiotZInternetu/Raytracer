@@ -19,7 +19,7 @@ internal class Program
         Configuration config = Configuration.Load(o.ConfigFile, o.JsonTrace);
         Console.WriteLine("Scene initialized.");
         
-        Scene scene = config.Scene;
+        FlatScene scene = config.Scene;
         IRenderer renderer = config.Renderer;
         
         if (o.ResolutionSet) scene.Camera.SetResolution(o.Width, o.Height);

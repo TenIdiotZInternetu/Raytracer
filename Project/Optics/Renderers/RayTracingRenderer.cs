@@ -15,7 +15,7 @@ public class RayTracingRenderer : IRenderer
     private static readonly Color3<Rgb> BLACK = new(0, 0, 0);
     [JsonProperty] public int MaxDepth { get; init; } = 10;
     
-    private Scene _scene;
+    private FlatScene _scene;
     private Brdf _brdf;
     
     public void Initialize(Configuration config)

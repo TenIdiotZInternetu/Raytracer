@@ -8,7 +8,7 @@ namespace rt004.Optics.Renderers;
 
 public class RayCastRenderer : IRenderer
 {
-    private Scene _scene;
+    private FlatScene _scene;
     private Brdf _brdf;
     
     public void Initialize(Configuration config)
@@ -41,7 +41,7 @@ public class RayCastRenderer : IRenderer
 
     private Color3<Rgb> ContributeLights(Intersection intersection)
     {
-        Color3<Rgb> color = _scene.AmbientColor;
+        Color3<Rgb> color = new();
 
         foreach (var light in _scene.LightSources)
         {

@@ -1,6 +1,7 @@
 using OpenTK;
 using OpenTK.Mathematics;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 
 namespace rt004.Optics.LightSources;
 
@@ -24,7 +25,7 @@ public struct RayTracedLight : ILightSource
         return -Direction;
     }
 
-    public bool InShade(Scene scene, Intersection shadedIntersect)
+    public bool InShade(IScene scene, Intersection shadedIntersect)
     {
         return false;
     }

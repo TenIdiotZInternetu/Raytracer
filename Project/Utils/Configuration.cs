@@ -16,7 +16,7 @@ public class Configuration
     [JsonProperty] public string Author { get; init; }
     [JsonProperty] public IRenderer Renderer { get; init; }
     [JsonProperty] public Brdf Brdf { get; init; }
-    [JsonProperty] public Scene Scene { get; init; }
+    [JsonProperty] public FlatScene Scene { get; init; }
     [JsonProperty] public List<Material> Materials { get; init; }
     
     public static Configuration Load(string jsonFileName, bool trace = false)
@@ -34,7 +34,7 @@ public class Configuration
             Console.WriteLine(traceWriter);
         }
 
-        configuration.Scene.Iniitialize(configuration);
+        configuration.Scene.Initialize(configuration);
         configuration.Renderer.Initialize(configuration);
         return configuration;
     }

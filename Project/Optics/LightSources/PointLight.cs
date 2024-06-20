@@ -2,6 +2,7 @@ using System.Numerics;
 using Newtonsoft.Json;
 using OpenTK;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 using Vector3 = OpenTK.Mathematics.Vector3;
 
 namespace rt004.Optics.LightSources;
@@ -17,17 +18,9 @@ public class PointLight : ILightSource
         return (Position - point).Normalized();
     }
 
-    public bool InShade(Scene scene, Intersection shadedIntersect)
+    public bool InShade(IScene scene, Intersection shadedIntersect)
     {
-        foreach (var solid in scene.Solids)
-        {
-            if (solid == shadedIntersect.InnerSolid) continue;
-            
-            Ray shadowRay = new Ray(shadedIntersect.Position, GetLightVector(shadedIntersect.Position));
-            Intersection? throwingIntersect = solid.GetRayIntersection(shadowRay);          // As in throwing shade
-            if (throwingIntersect != null) return true;
-        }
-
-        return false;
+        Ray shadowRay = new Ray(shadedIntersect.Position, GetLightVector(shadedIntersect.Position));
+        return scene.IntersectsWithScene(shadowRay);
     }
 }
