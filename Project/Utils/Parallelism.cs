@@ -11,22 +11,20 @@ public static class Parallelism
         int chunksOnCol = (colHeight / chunkSize) + 1;
         
         T[][] chunks = new T[chunksOnCol * chunksOnRow][];
-        
-        for(int i = 0; i < chunks.Length; i++)
+        Array.Fill(chunks, new T[chunkSize * chunkSize]);
+
+        foreach (var itemPos in VectorHelper.IterateRectangle(rowWidth, colHeight))
         {
-            T[] chunk = new T[chunkSize * chunkSize];
+            int chunkX = itemPos.XInt() / chunkSize;
+            int chunkY = itemPos.YInt() / chunkSize;
+            int chunkIndex = chunkY * chunksOnRow + chunkX;
             
-            foreach(var item in VectorHelper.IterateRectangle(chunkSize, chunkSize))
-            {
-                int row = (i / chunksOnRow) * chunkSize + item.XInt();
-                int col = (i % chunksOnRow) * chunkSize + item.YInt();
-                
-                if(row >= rowWidth || col >= colHeight) continue;
-                
-                chunk[item.XInt() * chunkSize + item.YInt()] = collection2D[row, col];
-            }
+            int chunkOffsetX = itemPos.XInt() % chunkSize;
+            int chunkOffsetY = itemPos.YInt() % chunkSize;
+            int chunkOffset = chunkOffsetY * chunkSize + chunkOffsetX;
             
-            chunks[i] = chunk;
+             T item = collection2D[itemPos.XInt(), itemPos.YInt()];
+             chunks[chunkIndex][chunkOffset] = item;
         }
 
         return chunks;

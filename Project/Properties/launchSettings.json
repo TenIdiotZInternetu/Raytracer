@@ -7,7 +7,7 @@
     "Debug": {
       "commandName": "Project",
       "workingDirectory": "$(ProjectDir)",
-      "commandLineArgs": "--width 400 --height 300 -s 10 -o ./Outputs/Debug.pfm -t -c ./Properties/Checkpoint4Scene.json"
+      "commandLineArgs": "--width 400 --height 300 -s 10 -o ./Outputs/Debug.pfm -t -p -c ./Properties/Checkpoint4Scene.json"
     },
     "Checkpoint2": {
       "commandName": "Project",

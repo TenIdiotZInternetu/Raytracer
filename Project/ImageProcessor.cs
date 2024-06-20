@@ -60,4 +60,5 @@ public static class ImageProcessor
             }
         });
     }
+    
 }
