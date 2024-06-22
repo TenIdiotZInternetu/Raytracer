@@ -7,6 +7,7 @@ using rt004.Optics.LightSources;
 using rt004.Optics.Renderers;
 using rt004.Optics.Samplers;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 using rt004.SceneDefinition.Solids;
 
 namespace rt004.Utils;
@@ -16,7 +17,7 @@ public class Configuration
     [JsonProperty] public string Author { get; init; }
     [JsonProperty] public IRenderer Renderer { get; init; }
     [JsonProperty] public Brdf Brdf { get; init; }
-    [JsonProperty] public FlatScene Scene { get; init; }
+    [JsonProperty] public IScene Scene { get; init; }
     [JsonProperty] public List<Material> Materials { get; init; }
     
     public static Configuration Load(string jsonFileName, bool trace = false)

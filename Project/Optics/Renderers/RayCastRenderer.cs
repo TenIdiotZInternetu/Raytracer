@@ -1,6 +1,7 @@
 using OpenTK;
 using rt004.Optics.BRDF;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 using rt004.Utils;
 using Util;
 
@@ -8,7 +9,7 @@ namespace rt004.Optics.Renderers;
 
 public class RayCastRenderer : IRenderer
 {
-    private FlatScene _scene;
+    private IScene _scene;
     private Brdf _brdf;
     
     public void Initialize(Configuration config)
@@ -43,7 +44,7 @@ public class RayCastRenderer : IRenderer
     {
         Color3<Rgb> color = new();
 
-        foreach (var light in _scene.LightSources)
+        foreach (var light in _scene.GetLights())
         {
             if (light.InShade(_scene, intersection)) continue;
 

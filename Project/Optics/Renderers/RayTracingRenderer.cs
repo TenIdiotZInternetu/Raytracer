@@ -4,6 +4,7 @@ using OpenTK.Mathematics;
 using rt004.Optics.BRDF;
 using rt004.Optics.LightSources;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 using rt004.Utils;
 using Util;
 
@@ -15,7 +16,7 @@ public class RayTracingRenderer : IRenderer
     private static readonly Color3<Rgb> BLACK = new(0, 0, 0);
     [JsonProperty] public int MaxDepth { get; init; } = 10;
     
-    private FlatScene _scene;
+    private IScene _scene;
     private Brdf _brdf;
     
     public void Initialize(Configuration config)
@@ -67,7 +68,7 @@ public class RayTracingRenderer : IRenderer
     {
         Color3<Rgb> color = BLACK;
 
-        foreach (var light in _scene.LightSources)
+        foreach (var light in _scene.GetLights())
         {
             if (light.InShade(_scene, point)) continue;
             color = color.Add(_brdf.GetDiffuseColor(light, point));

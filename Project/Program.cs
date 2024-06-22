@@ -2,6 +2,7 @@
 using OpenTK.Mathematics;
 using rt004.Optics.Renderers;
 using rt004.SceneDefinition;
+using rt004.SceneDefinition.SceneTypes;
 using rt004.Utils;
 using Util;
 
@@ -19,7 +20,7 @@ internal class Program
         Configuration config = Configuration.Load(o.ConfigFile, o.JsonTrace);
         Console.WriteLine("Scene initialized.");
         
-        FlatScene scene = config.Scene;
+        IScene scene = config.Scene;
         IRenderer renderer = config.Renderer;
         
         if (o.ResolutionSet) scene.Camera.SetResolution(o.Width, o.Height);

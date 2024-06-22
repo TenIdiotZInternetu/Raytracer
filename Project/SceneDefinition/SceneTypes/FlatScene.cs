@@ -45,7 +45,16 @@ public class FlatScene : IScene
 
     public bool IntersectsWithScene(Ray ray)
     {
-        throw new NotImplementedException();
+        foreach (var solid in Solids)
+        {
+            Intersection? intersection = solid.GetRayIntersection(ray);
+            if (intersection is { DistanceFromOrigin: > EPSILON })
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public ILightSource[] GetLights()
