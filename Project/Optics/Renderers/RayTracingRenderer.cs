@@ -82,7 +82,7 @@ public class RayTracingRenderer : IRenderer
         Vector3 reflection = point.GetReflection();
         float reflectance = _brdf.GetReflectance(reflection, point);
         
-        Ray reflectedRay = new Ray(point.Position, reflection, point.OuterSolid);
+        Ray reflectedRay = new Ray(point.Position, reflection, point.OuterMaterial);
         RayTracedLight reflectedLight = TraceRay(reflectedRay, reflectance * intensity, depth + 1);
 
         Color3<Rgb> resColor = _brdf.GetDiffuseColor(reflectedLight, point);
@@ -98,7 +98,7 @@ public class RayTracingRenderer : IRenderer
         if (totalReflection) return BLACK;
         
         float transmittance = _brdf.GetTransmittance(refraction, point);
-        Ray refractedRay = new Ray(point.Position, refraction, point.InnerSolid);
+        Ray refractedRay = new Ray(point.Position, refraction, point.InnerMaterial);
         RayTracedLight refractedLight = TraceRay(refractedRay, transmittance * intensity, depth + 1);
         
         return refractedLight.EmittedColor;

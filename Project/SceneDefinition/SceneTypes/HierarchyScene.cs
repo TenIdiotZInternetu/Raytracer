@@ -16,7 +16,7 @@ public class HierarchyScene : IScene
 
     private record struct SceneObject(
         Solid Solid,
-        Material MaterialName,
+        Material Material,
         Matrix4 Transformation,
         Matrix4 InverseTransformation);
     
@@ -41,24 +41,26 @@ public class HierarchyScene : IScene
 
     public Intersection? FindIntersection(Ray ray)
     {
-        Intersection? closestIntersection = null;
-        SceneObject? closestObject = null;
+        float closestT = Solid.MISS;
+        SceneObject? intersectedObject = null;
+        Intersection? intersection = null;
             
         foreach (var obj in _objects)
         {
             Ray transformedRay = ray.Transform(obj.Transformation);
-            Intersection? intersection = obj.Solid.GetRayIntersection(transformedRay);
-            if (intersection == null) continue;
+            float t = obj.Solid.FindIntersectionParameter(transformedRay);
+            if (t == Solid.MISS) continue;
             
-            if (intersection?.DistanceFromOrigin < closestIntersection?.DistanceFromOrigin ||
-                closestIntersection == null)
+            if (t < closestT || t > EPSILON)
             {
-                closestIntersection = intersection;
-                closestObject = obj;
+                closestT = t;
+                intersectedObject = obj;
+                intersection = new Intersection(transformedRay, t, obj.Solid, obj.Material);
             }
         }
         
-        return ToCanonical(closestIntersection, closestObject);
+        if (intersection == null) return null;
+        return intersection.Value.Transform(intersectedObject!.Value.InverseTransformation);
     }
 
     public bool IntersectsWithScene(Ray ray)
@@ -66,8 +68,9 @@ public class HierarchyScene : IScene
         foreach (var obj in _objects)
         {
             Ray transformedRay = ray.Transform(obj.Transformation);
-            Intersection? intersection = obj.Solid.GetRayIntersection(transformedRay);
-            if (intersection is { DistanceFromOrigin: > EPSILON })
+            float t = obj.Solid.FindIntersectionParameter(transformedRay);
+
+            if (t > EPSILON)
             {
                 return true;
             }
@@ -79,18 +82,6 @@ public class HierarchyScene : IScene
     public ILightSource[] GetLights()
     {
         return LightSources.ToArray();
-    }
-
-    private Intersection? ToCanonical(Intersection? nonCanonical, SceneObject? intersectedObject)
-    {
-        if (nonCanonical == null) return null;
-
-        Intersection point = nonCanonical.Value;
-        SceneObject obj = intersectedObject!.Value;
-
-        Vector3 canonicalPos = (point.Position.ToHomogenous() * obj.InverseTransformation).To3d();
-        Ray canonicalRay = point.Ray.Transform(obj.InverseTransformation);
-        return new Intersection(canonicalPos, canonicalRay, obj.Solid);
     }
     
     private void AddMaterials(List<Material> materials)

@@ -1,5 +1,6 @@
 using OpenTK.Mathematics;
 using rt004.SceneDefinition.Solids;
+using rt004.Utils;
 using Void = rt004.SceneDefinition.Solids.Void;
 
 namespace rt004.Optics;
@@ -10,31 +11,39 @@ public struct Intersection
     public Ray Ray { get; init; }
     public Vector3 ViewDirection => -Ray.Direction;
 
-    public Solid InnerSolid { get; init; }
-    public Solid OuterSolid => Ray.ContainingSolid;
-    public Material InnerMaterial => InnerSolid.Material;
-    public Material OuterMaterial => OuterSolid.Material;
+    public Material InnerMaterial;
+    public Material OuterMaterial => Ray.ContainingMaterial;
     
     public float DistanceFromOrigin => Vector3.Distance(Position, Ray.Origin);
     public Vector3 SurfaceNormal { get; init; }
     
-    public Intersection(Vector3 position, Ray ray, Solid solid)
+    public Intersection(Ray ray, float tParameter, Solid solid, Material innerMaterial)
     {
-        Position = position;
         Ray = ray;
-        Vector3 surfaceNormal = solid.GetNormalAtPoint(position);
+        Position = ray.At(tParameter);
 
         // Assuming there are no nested solids within the scene
-        if (solid == ray.ContainingSolid)
+        if (innerMaterial == ray.ContainingMaterial)
         {
-            SurfaceNormal = -surfaceNormal;
-            InnerSolid = Solid.Void;
+            SurfaceNormal = -solid.GetNormalAtPoint(Position);
+            InnerMaterial = Material.Void;
         }
         else
         {
-            SurfaceNormal = surfaceNormal;
-            InnerSolid = solid;
+            SurfaceNormal = solid.GetNormalAtPoint(Position);
+            InnerMaterial = innerMaterial;
         }
+    }
+    
+    public Intersection Transform(Matrix4 transformation)
+    {
+        return new Intersection
+        {
+            Position = (Position.ToHomogenous() * transformation).To3d(),
+            Ray = Ray.Transform(transformation),
+            SurfaceNormal = (SurfaceNormal.ToHomogenous() * transformation).To3d().Normalized(),
+            InnerMaterial = InnerMaterial,
+        };
     }
     
     public Vector3 GetReflection() 

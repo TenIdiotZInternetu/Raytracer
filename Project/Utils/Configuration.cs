@@ -80,7 +80,6 @@ public class Configuration
         
         settings.Converters.Add(JsonSubtypesConverterBuilder
             .Of<IScene>("Tag")
-            .RegisterSubtype<FlatScene>("FLAT")
             .RegisterSubtype<HierarchyScene>("TREE")
             .SerializeDiscriminatorProperty()
             .Build());
