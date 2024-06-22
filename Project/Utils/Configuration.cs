@@ -87,7 +87,7 @@ public class Configuration
         
         settings.Converters.Add(JsonSubtypesConverterBuilder
             .Of<IHierarchySceneNode>("Tag")
-            .RegisterSubtype<HierarchyScene>("INNER")
+            .RegisterSubtype<HierarchySceneInnerNode>("INNER")
             .RegisterSubtype<HierarchySceneSolid>("SOLID")
             .SerializeDiscriminatorProperty()
             .Build());
