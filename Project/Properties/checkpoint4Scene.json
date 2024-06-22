@@ -6,11 +6,10 @@
   },
   "Brdf": {"Tag": "PHONG"},
   "Scene": {
-    "Tag": "FLAT",
-    "BackgroundColor": {"X": 0.1, "Y": 0.2, "Z": 0.3},
-    "AmbientColor": {"X": 0.1, "Y": 0.1, "Z": 0.1},
+    "Tag": "TREE",
+    "BackgroundColor": {"X": 0.1, "Y": 0.2, "Z": -1},
     "Camera": {
-      "Position": {"X": 0.6, "Y": 0, "Z": -5.6},
+      "Position": {"X": 0.6, "Y": 3, "Z": -5.6},
       "Forward": {"X": 0, "Y": 0, "Z": 1},
       "Up": {"X": 0, "Y": 1, "Z": 0.0},
       "ScreenDistance": 1,
@@ -35,42 +34,37 @@
         "Intensity": 0.3
       }
     ],
-    "Solids": [
+    "Tree": [
       {
-        "Tag": "SPHERE",
-        "Position": {"X": 0, "Y": 0, "Z": 0},
-        "Radius": 1,
-        "MaterialTag": "yellow"
+        "Tag": "SOLID",
+        "Scale": {"X": 30, "Y": 0.2, "Z": 100},
+        "SolidType": "Rectangle",
+        "MaterialName": "white"
       },
       {
-        "Tag": "SPHERE",
-        "Position": {"X": 1.4, "Y": -0.7, "Z": -0.5},
-        "Radius": 0.6,
-        "MaterialTag": "blue"
-      },
-      {
-        "Tag": "SPHERE",
-        "Position": {"X": -0.7, "Y": 0.7, "Z": -0.8},
-        "Radius": 0.1,
-        "MaterialTag": "red"
-      },
-      {
-        "Tag": "SPHERE",
-        "Position": {"X": 1.5, "Y": 0.6, "Z": 0.1},
-        "Radius": 0.5,
-        "MaterialTag": "gold"
-      },
-      {
-        "Tag": "RECTANGLE",
-        "Position": {"X": 0, "Y": -1.3, "Z": 0},
-        "Normal": {"X": 0, "Y": 1, "Z": 0},
-        "WidthAxis": {"X": 1, "Y": 0, "Z": 0},
-        "Width": 100,
-        "Height": 100,
-        "MaterialTag": "white"
+        "Tag": "INNER",
+        "Translation": {"X": 0, "Y": 0, "Z": 1.2},
+        "Scale": {"X": 1, "Y": 1, "Z": 1},
+        "Children": [
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -1, "Y": 0, "Z": 0},
+            "Scale": {"X": 2, "Y": 2, "Z": 2},
+            "SolidType": "Sphere",
+            "MaterialName": "yellow"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 0.5, "Y": 0.2, "Z": 0},
+            "Scale": {"X": 0.3, "Y": 0.5, "Z": 0.3},
+            "SolidType": "Rectangle",
+            "MaterialName": "red"
+          }
+        ]
       }
     ]
   },
+    
   "Materials": [
     {
       "Name": "yellow",
