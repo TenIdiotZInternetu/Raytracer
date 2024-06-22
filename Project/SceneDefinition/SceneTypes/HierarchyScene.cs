@@ -151,7 +151,7 @@ public class HierarchyScene : IScene
         Matrix4 rotationY = Matrix4.CreateRotationY(node.Rotation.Y);
         Matrix4 rotationZ = Matrix4.CreateRotationZ(node.Rotation.Z);
         
-        Matrix4 scale = Matrix4.CreateScale(node.Scale);
+        Matrix4 scale = (node.Scale == Vector3.Zero) ? Matrix4.Identity : Matrix4.CreateScale(node.Scale);
         Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
         
         return rotationX * rotationY * rotationZ * scale * translation;
