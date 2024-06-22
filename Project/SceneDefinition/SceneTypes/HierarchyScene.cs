@@ -60,7 +60,7 @@ public class HierarchyScene : IScene
         foreach (var obj in _objects)
         {
             Ray transformedRay = ray.Transform(obj.Transformation);
-            Intersection? intersection = obj.Solid.GetRayIntersection(ray);
+            Intersection? intersection = obj.Solid.GetRayIntersection(transformedRay);
             if (intersection is { DistanceFromOrigin: > EPSILON })
             {
                 return true;
