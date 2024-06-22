@@ -47,7 +47,7 @@ public class HierarchyScene : IScene
             
         foreach (var obj in _objects)
         {
-            Ray transformedRay = ray.Transform(obj.Transformation);
+            Ray transformedRay = ray.Transform(obj.InverseTransformation);
             float t = obj.Solid.FindIntersectionParameter(transformedRay);
             if (t == Solid.MISS) continue;
             
@@ -60,14 +60,15 @@ public class HierarchyScene : IScene
         }
         
         if (intersection == null) return null;
-        return intersection.Value.Transform(intersectedObject!.Value.InverseTransformation);
+        Intersection worldIntersection = intersection.Value.Transform(intersectedObject!.Value.Transformation);
+        return worldIntersection;
     }
 
     public bool IntersectsWithScene(Ray ray)
     {
         foreach (var obj in _objects)
         {
-            Ray transformedRay = ray.Transform(obj.Transformation);
+            Ray transformedRay = ray.Transform(obj.InverseTransformation);
             float t = obj.Solid.FindIntersectionParameter(transformedRay);
 
             if (t > EPSILON)
