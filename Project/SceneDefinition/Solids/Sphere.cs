@@ -26,7 +26,7 @@ public class Sphere : Solid
             Vector3.Dot(ray.Direction, ray.Direction) - Radius * Radius);
     }
 
-    public override Intersection? GetRayIntersection(Ray ray)
+    public override float FindIntersectionParameter(Ray ray)
     {
         if (!_isInitialized) Initialize();
 
@@ -37,17 +37,16 @@ public class Sphere : Solid
             2 * Vector3.Dot(relativeRayPos, ray.Direction),
             Vector3.Dot(relativeRayPos, relativeRayPos) - Radius * Radius);
 
-        if (solutions == null) return null;
+        if (solutions == null) return MISS;
         
         float closer = MathF.Min(solutions.Root1, solutions.Root2);
         float further = MathF.Max(solutions.Root1, solutions.Root2);
         
         float distance = closer;
         if (distance < EPSILON) distance = further;
-        if (distance < EPSILON) return null;
-        
-        Vector3 intersectionPoint = ray.At(distance);
-        return new Intersection(intersectionPoint, ray, this);
+        if (distance < EPSILON) return MISS;
+
+        return distance;
     }
 
     public override Vector2? GetUvCoordinates(Vector3 point)

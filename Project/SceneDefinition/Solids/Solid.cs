@@ -8,6 +8,7 @@ namespace rt004.SceneDefinition.Solids;
 
 public abstract class Solid
 {
+    public const float MISS = -1;
     protected const float EPSILON = 1e-4f;
 
     [JsonProperty] public Vector3 Position { get; protected set; }
@@ -21,7 +22,7 @@ public abstract class Solid
 
     public abstract bool IntersectsRay(Ray ray);
 
-    public abstract Intersection? GetRayIntersection(Ray ray);
+    public abstract float FindIntersectionParameter(Ray ray);
 
     public abstract Vector2? GetUvCoordinates(Vector3 point);
 

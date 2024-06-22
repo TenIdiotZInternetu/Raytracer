@@ -29,10 +29,10 @@ public class Rectangle : Solid
     public override bool IntersectsRay(Ray ray)
     {
         if (!_isInitialized) Initialize();
-        return GetRayIntersection(ray) != null;
+        return FindIntersectionParameter(ray) != null;
     }
     
-    public override Intersection? GetRayIntersection(Ray ray)
+    public override float FindIntersectionParameter(Ray ray)
     {
         if (!_isInitialized) Initialize();
 
@@ -40,13 +40,13 @@ public class Rectangle : Solid
             -(Vector3.Dot(ray.Origin, Normal) + _dParameter)
             / Vector3.Dot(ray.Direction, Normal);
         
-        if (rayIntersectionDistance < EPSILON) return null;
+        if (rayIntersectionDistance < EPSILON) return MISS;
         
         Vector3 intersectionPoint = ray.At(rayIntersectionDistance);
 
-        if (GetUvCoordinates(intersectionPoint) == null) return null;
+        if (GetUvCoordinates(intersectionPoint) == null) return MISS;
         
-        return new Intersection(intersectionPoint, ray, this);
+        return rayIntersectionDistance;
     }
     
     public override Vector2? GetUvCoordinates(Vector3 point)
