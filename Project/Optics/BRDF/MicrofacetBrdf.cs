@@ -37,7 +37,7 @@ public class MicrofacetBrdf : Brdf
         public Arguments(Vector3 lightDirection, Intersection point, Mode mode)
         {
             Intersection = point;
-            ViewDirection = -point.Ray.Direction;
+            ViewDirection = point.ViewDirection;
             LightDirection = lightDirection;
             Normal = point.SurfaceNormal;
 
