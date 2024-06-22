@@ -83,7 +83,7 @@ public class HierarchyScene : IScene
         SceneObject obj = intersectedObject!.Value;
 
         Vector3 canonicalPos = (point.Position.ToHomogenous() * obj.InverseTransformation).To3d();
-        Ray cononicalRay = point.Ray.Transform(obj.InverseTransformation);
-        return new Intersection(canonicalPos, cononicalRay, obj.Solid);
+        Ray canonicalRay = point.Ray.Transform(obj.InverseTransformation);
+        return new Intersection(canonicalPos, canonicalRay, obj.Solid);
     }
 }
