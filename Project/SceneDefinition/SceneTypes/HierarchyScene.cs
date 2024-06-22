@@ -21,6 +21,9 @@ public class HierarchyScene : IScene
     
     [JsonProperty] public Color3<Rgb> BackgroundColor { get; init; }
     [JsonProperty] public Camera Camera { get; init; }
+    [JsonProperty] public List<ILightSource> LightSources { get; init; }
+    
+    [JsonProperty] public List<IHierarchySceneNode> Tree { get; init; }
 
     private List<SceneObject> _objects = new();
     
@@ -33,6 +36,7 @@ public class HierarchyScene : IScene
     public Intersection? FindIntersection(Ray ray)
     {
         Intersection? closestIntersection = null;
+        SceneObject? closestObject = null;
             
         foreach (var obj in _objects)
         {
@@ -44,10 +48,11 @@ public class HierarchyScene : IScene
                 closestIntersection == null)
             {
                 closestIntersection = intersection;
+                closestObject = obj;
             }
         }
         
-        return closestIntersection;
+        return ToCanonical(closestIntersection, closestObject);
     }
 
     public bool IntersectsWithScene(Ray ray)
@@ -67,6 +72,18 @@ public class HierarchyScene : IScene
 
     public ILightSource[] GetLights()
     {
-        throw new NotImplementedException();
+        return LightSources.ToArray();
+    }
+
+    private Intersection? ToCanonical(Intersection? nonCanonical, SceneObject? intersectedObject)
+    {
+        if (nonCanonical == null) return null;
+
+        Intersection point = nonCanonical.Value;
+        SceneObject obj = intersectedObject!.Value;
+
+        Vector3 canonicalPos = (point.Position.ToHomogenous() * obj.InverseTransformation).To3d();
+        Ray cononicalRay = point.Ray.Transform(obj.InverseTransformation);
+        return new Intersection(canonicalPos, cononicalRay, obj.Solid);
     }
 }
