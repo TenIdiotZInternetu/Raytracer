@@ -97,18 +97,18 @@ public class HierarchyScene : IScene
 
     private void ConstructObjects(IHierarchySceneNode node, Matrix4 parentTransform)
     {
-        Matrix4 transform = ConstructTransform(node) * parentTransform;
-        Matrix4 inverseTransform = transform.Inverted();
+        Matrix4 transformation = ConstructTransform(node) * parentTransform;
+        Matrix4 inverseTransform = transformation.Inverted();
         
         if (node is HierarchySceneSolid solidNode)
         {
-            _objects.Add(new SceneObject(solidNode.Solid, solidNode.Material, transform, inverseTransform));
+            _objects.Add(new SceneObject(solidNode.Solid, solidNode.Material, transformation, inverseTransform));
         }
         else if (node is HierarchySceneInnerNode innerNode)
         {
             foreach (var child in innerNode.Children)
             {
-                ConstructObjects(child, transform);
+                ConstructObjects(child, transformation);
             }
         }
     }
