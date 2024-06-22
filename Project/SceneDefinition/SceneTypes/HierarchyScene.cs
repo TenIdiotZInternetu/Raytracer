@@ -31,7 +31,8 @@ public class HierarchyScene : IScene
     
     public void Initialize(Configuration config)
     {
-        throw new NotImplementedException();
+        ConstructObjects();
+        AssignMaterials(config.Materials);
     }
 
     public Intersection? FindIntersection(Ray ray)
@@ -124,5 +125,13 @@ public class HierarchyScene : IScene
         Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
         
         return rotationX * rotationY * rotationZ * scale * translation;
+    }
+    
+    private void AssignMaterials(List<Material> materials)
+    {
+        foreach (var obj in _objects)
+        {
+            obj.Solid.Material = materials.Find(material => material.Name == obj.MaterialName);
+        }
     }
 }
