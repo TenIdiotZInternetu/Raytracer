@@ -77,5 +77,11 @@ public class Configuration
             .RegisterSubtype<HammersleySampler>("HAMMERSLEY")
             .SerializeDiscriminatorProperty()
             .Build());
+        
+        settings.Converters.Add(JsonSubtypesConverterBuilder
+            .Of<IScene>("Tag")
+            .RegisterSubtype<FlatScene>("FLAT")
+            .SerializeDiscriminatorProperty()
+            .Build());
     }
 }
