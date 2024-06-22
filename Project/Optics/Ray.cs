@@ -36,10 +36,10 @@ public struct Ray
     public Ray Transform(Matrix4 transformation)
     {
         Vector4 homogeneousOrigin = Origin.ToHomogenous();
-        Vector4 homogeneousDirection = Direction.ToHomogenous();
+        Vector4 directivePoint = (Origin + Direction).ToHomogenous();
         
         Vector3 newOrigin = (homogeneousOrigin * transformation).To3d();
-        Vector3 newDirection = ((homogeneousDirection * transformation).To3d() - newOrigin).Normalized();
+        Vector3 newDirection = ((directivePoint * transformation).To3d() - newOrigin).Normalized();
         
         return new Ray(newOrigin, newDirection, ContainingMaterial);
     }
