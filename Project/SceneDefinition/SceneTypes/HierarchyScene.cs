@@ -15,7 +15,7 @@ public class HierarchyScene : IScene
 
     private record struct SceneObject(
         Solid Solid,
-        Material Material,
+        string MaterialName,
         Matrix4 Transformation,
         Matrix4 InverseTransformation);
     
@@ -26,6 +26,7 @@ public class HierarchyScene : IScene
     [JsonProperty] public List<IHierarchySceneNode> Tree { get; init; }
 
     private List<SceneObject> _objects = new();
+    private Solid[] _primitives;
     
     
     public void Initialize(Configuration config)
@@ -102,7 +103,7 @@ public class HierarchyScene : IScene
         
         if (node is HierarchySceneSolid solidNode)
         {
-            _objects.Add(new SceneObject(solidNode.Solid, solidNode.Material, transformation, inverseTransform));
+            _objects.Add(new SceneObject(solidNode.Solid, solidNode.MaterialName, transformation, inverseTransform));
         }
         else if (node is HierarchySceneInnerNode innerNode)
         {
