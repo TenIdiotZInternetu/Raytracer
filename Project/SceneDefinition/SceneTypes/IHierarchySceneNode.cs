@@ -27,6 +27,6 @@ public struct HierarchySceneSolid : IHierarchySceneNode
     [JsonProperty] public Vector3 Rotation { get; init; }
     [JsonProperty] public Vector3 Scale { get; init; }
     
-    [JsonProperty] public Solid Solid { get; init; }
+    [JsonProperty] public string SolidType { get; init; }
     [JsonProperty] public string MaterialName { get; init; }
 }

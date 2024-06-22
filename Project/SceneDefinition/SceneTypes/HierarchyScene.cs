@@ -16,7 +16,7 @@ public class HierarchyScene : IScene
 
     private record struct SceneObject(
         Solid Solid,
-        string MaterialName,
+        Material MaterialName,
         Matrix4 Transformation,
         Matrix4 InverseTransformation);
     
@@ -27,14 +27,16 @@ public class HierarchyScene : IScene
     [JsonProperty] public List<IHierarchySceneNode> Tree { get; init; }
 
     private List<SceneObject> _objects = new();
-    private Solid[] _primitives;
+    
+    private Dictionary<string, Solid> _primitives = new();
+    private Dictionary<string, Material> _materials = new();
     
     
     public void Initialize(Configuration config)
     {
+        AddMaterials(config.Materials);
         ConstructPrimitives();
         ConstructObjects();
-        AssignMaterials(config.Materials);
     }
 
     public Intersection? FindIntersection(Ray ray)
@@ -91,15 +93,28 @@ public class HierarchyScene : IScene
         return new Intersection(canonicalPos, canonicalRay, obj.Solid);
     }
     
+    private void AddMaterials(List<Material> materials)
+    {
+        foreach (var material in materials)
+        {
+            _materials.Add(material.Name, material);
+        }
+    }
+    
     private void ConstructPrimitives()
     {
         Type solidBase = typeof(Solid);
         Assembly assembly = solidBase.Assembly;
         
-        _primitives = assembly.GetTypes()
+        Solid[] primitives = assembly.GetTypes()
             .Where(type => type.IsSubclassOf(solidBase))
             .Select(type => (Solid) Activator.CreateInstance(type)!)
             .ToArray();
+
+        foreach (var primitive in primitives)
+        {
+            _primitives.Add(primitive.GetType().Name, primitive);
+        }
     }
 
     private void ConstructObjects()
@@ -117,7 +132,9 @@ public class HierarchyScene : IScene
         
         if (node is HierarchySceneSolid solidNode)
         {
-            _objects.Add(new SceneObject(solidNode.Solid, solidNode.MaterialName, transformation, inverseTransform));
+            Solid solid = _primitives[solidNode.SolidType];
+            Material material = _materials[solidNode.MaterialName];
+            _objects.Add(new SceneObject(solid, material, transformation, inverseTransform));
         }
         else if (node is HierarchySceneInnerNode innerNode)
         {
@@ -138,13 +155,5 @@ public class HierarchyScene : IScene
         Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
         
         return rotationX * rotationY * rotationZ * scale * translation;
-    }
-    
-    private void AssignMaterials(List<Material> materials)
-    {
-        foreach (var obj in _objects)
-        {
-            obj.Solid.Material = materials.Find(material => material.Name == obj.MaterialName);
-        }
     }
 }
