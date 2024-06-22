@@ -21,7 +21,7 @@ public struct HierarchySceneInnerNode : IHierarchySceneNode
     [JsonProperty] public List<IHierarchySceneNode> Children { get; init; }
 }
 
-public struct HierarchySceneInnerSolid : IHierarchySceneNode
+public struct HierarchySceneSolid : IHierarchySceneNode
 {
     [JsonProperty] public Vector3 Translation { get; init; }
     [JsonProperty] public Vector3 Rotation { get; init; }
