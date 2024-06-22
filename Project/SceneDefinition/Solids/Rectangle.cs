@@ -18,6 +18,14 @@ public class Rectangle : Solid
     // As in the parametric form: x * xn + y * yn + z * zn + D = 0
     private float _dParameter;
 
+    public Rectangle()
+    {
+        Normal = new Vector3(0, 1, 0);
+        WidthAxis = new Vector3(1, 0, 0);
+        Width = 1;
+        Height = 1;
+    }
+
     public override bool IntersectsRay(Ray ray)
     {
         if (!_isInitialized) Initialize();

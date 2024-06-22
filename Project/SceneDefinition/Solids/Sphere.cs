@@ -9,6 +9,11 @@ public class Sphere : Solid
 {
     [JsonProperty] public float Radius { get; private set; }
 
+    public Sphere()
+    {
+        Radius = 1;
+    }
+    
     public override bool IntersectsRay(Ray ray)
     {
         if (!_isInitialized) Initialize();

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Newtonsoft.Json;
 using OpenTK;
 using OpenTK.Mathematics;
@@ -31,6 +32,7 @@ public class HierarchyScene : IScene
     
     public void Initialize(Configuration config)
     {
+        ConstructPrimitives();
         ConstructObjects();
         AssignMaterials(config.Materials);
     }
@@ -87,6 +89,17 @@ public class HierarchyScene : IScene
         Vector3 canonicalPos = (point.Position.ToHomogenous() * obj.InverseTransformation).To3d();
         Ray canonicalRay = point.Ray.Transform(obj.InverseTransformation);
         return new Intersection(canonicalPos, canonicalRay, obj.Solid);
+    }
+    
+    private void ConstructPrimitives()
+    {
+        Type solidBase = typeof(Solid);
+        Assembly assembly = solidBase.Assembly;
+        
+        _primitives = assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(solidBase))
+            .Select(type => (Solid) Activator.CreateInstance(type)!)
+            .ToArray();
     }
 
     private void ConstructObjects()
