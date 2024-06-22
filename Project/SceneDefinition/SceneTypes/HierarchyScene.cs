@@ -5,19 +5,19 @@ using rt004.Optics;
 using rt004.Optics.LightSources;
 using rt004.SceneDefinition.Solids;
 using rt004.Utils;
+using Void = rt004.SceneDefinition.Solids.Void;
 
 namespace rt004.SceneDefinition.SceneTypes;
 
 public class HierarchyScene : IScene
 {
     private const float EPSILON = 1e-3f;
-    private struct SceneObject
-    {
-        public Solid Solid;
-        public Material Material;
-        public Matrix4 Transformation;
-        public Matrix4 InverseTransformation;
-    }
+
+    private record struct SceneObject(
+        Solid Solid,
+        Material Material,
+        Matrix4 Transformation,
+        Matrix4 InverseTransformation);
     
     [JsonProperty] public Color3<Rgb> BackgroundColor { get; init; }
     [JsonProperty] public Camera Camera { get; init; }
@@ -85,5 +85,43 @@ public class HierarchyScene : IScene
         Vector3 canonicalPos = (point.Position.ToHomogenous() * obj.InverseTransformation).To3d();
         Ray canonicalRay = point.Ray.Transform(obj.InverseTransformation);
         return new Intersection(canonicalPos, canonicalRay, obj.Solid);
+    }
+
+    private void ConstructObjects()
+    {
+        foreach(var node in Tree)
+        {
+            ConstructObjects(node, Matrix4.Identity);
+        }
+    }
+
+    private void ConstructObjects(IHierarchySceneNode node, Matrix4 parentTransform)
+    {
+        Matrix4 transform = ConstructTransform(node) * parentTransform;
+        Matrix4 inverseTransform = transform.Inverted();
+        
+        if (node is HierarchySceneSolid solidNode)
+        {
+            _objects.Add(new SceneObject(solidNode.Solid, solidNode.Material, transform, inverseTransform));
+        }
+        else if (node is HierarchySceneInnerNode innerNode)
+        {
+            foreach (var child in innerNode.Children)
+            {
+                ConstructObjects(child, transform);
+            }
+        }
+    }
+
+    private Matrix4 ConstructTransform(IHierarchySceneNode node)
+    {
+        Matrix4 rotationX = Matrix4.CreateRotationX(node.Rotation.X);
+        Matrix4 rotationY = Matrix4.CreateRotationY(node.Rotation.Y);
+        Matrix4 rotationZ = Matrix4.CreateRotationZ(node.Rotation.Z);
+        
+        Matrix4 scale = Matrix4.CreateScale(node.Scale);
+        Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
+        
+        return rotationX * rotationY * rotationZ * scale * translation;
     }
 }
