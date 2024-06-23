@@ -4,8 +4,8 @@ A primitive Raytracing model for the Photorealistic graphics course. It runs on 
 
 ## Examples
 **Phong's model**  
-![PhongRT](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/18fafb77-cb68-478e-ac66-825be3e93d3c)
-**Microfacet model**
+![PhongRT](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/18fafb77-cb68-478e-ac66-825be3e93d3c)  
+**Microfacet model**  
 ![MicrofacetCk4](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/56bdcebf-3610-4663-bbe1-d2dbe26c509f)
 
 
