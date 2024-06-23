@@ -11,10 +11,10 @@
     "GeometryFunction": "GGX"
   },
   "Scene": {
+    "Tag": "TREE",
     "BackgroundColor": {"X": 0.1, "Y": 0.2, "Z": 0.3},
-    "AmbientColor": {"X": 0.1, "Y": 0.1, "Z": 0.1},
     "Camera": {
-      "Position": {"X": 0.6, "Y": 0, "Z": -5.6},
+      "Position": {"X": -2, "Y": 1, "Z": -20},
       "Forward": {"X": 0, "Y": 0, "Z": 1},
       "Up": {"X": 0, "Y": 1, "Z": 0.0},
       "ScreenDistance": 1,
@@ -28,69 +28,80 @@
     "LightSources": [
       {
         "Tag": "POINT",
-        "Position": {"X": -10, "Y": 8, "Z": -6},
+        "Position": {"X": -3, "Y": 10, "Z": 15},
         "BaseColor": {"X": 1, "Y": 1, "Z": 1},
         "Intensity": 1
       },
       {
         "Tag": "POINT",
-        "Position": {"X": 0, "Y": 20, "Z": -3},
-        "BaseColor": {"X": 1, "Y": 1, "Z": 1},
+        "Position": {"X": -10, "Y": 7, "Z": -20},
+        "BaseColor": {"X": 0.4, "Y": 0.4, "Z": 1},
         "Intensity": 0.3
       }
     ],
-    "Solids": [
+    "Tree": [
       {
-        "Tag": "SPHERE",
-        "Position": {"X": 0, "Y": 0, "Z": 0},
-        "Radius": 1,
-        "MaterialTag": "yellow"
+        "Tag": "SOLID",
+        "Translation": {"X": 0, "Y": -5, "Z": 0},
+        "Scale": {"X": 30, "Y": 1, "Z": 100},
+        "SolidType": "Rectangle",
+        "MaterialName": "white"
       },
       {
-        "Tag": "SPHERE",
-        "Position": {"X": 1.4, "Y": -0.7, "Z": -0.5},
-        "Radius": 0.6,
-        "MaterialTag": "blue"
+        "Tag": "INNER",
+        "Translation": {"X": 0, "Y": 0, "Z": 10},
+        "Children": [
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 3, "Y": 0, "Z": 0},
+            "Scale": {"X": 2, "Y": 2, "Z": 2},
+            "SolidType": "Sphere",
+            "MaterialName": "blue"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -0.5, "Y": -4, "Z": 1},
+            "Scale": {"X": 0.4, "Y": 0.6, "Z": 0.6},
+            "Rotation": {"X": 90, "Y": 40, "Z": 40},
+            "SolidType": "Sphere",
+            "MaterialName": "red"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -5, "Y": -1, "Z": -3},
+            "Scale": {"X": 3, "Y": 3, "Z": 3},
+            "SolidType": "Sphere",
+            "MaterialName": "yellow"
+          }
+        ]
       },
       {
-        "Tag": "SPHERE",
-        "Position": {"X": -0.7, "Y": 0.7, "Z": -0.8},
-        "Radius": 0.1,
-        "MaterialTag": "red"
-      },
-      {
-        "Tag": "SPHERE",
-        "Position": {"X": 1.5, "Y": 0.6, "Z": 0.1},
-        "Radius": 0.5,
-        "MaterialTag": "gold"
-      },
-      {
-        "Tag": "RECTANGLE",
-        "Position": {"X": 0, "Y": -1.3, "Z": 0},
-        "Normal": {"X": 0, "Y": 1, "Z": 0},
-        "WidthAxis": {"X": 1, "Y": 0, "Z": 0},
-        "Width": 100,
-        "Height": 100,
-        "MaterialTag": "white"
+        "Tag": "SOLID",
+        "Translation": {"X": 0, "Y": 0, "Z": 30},
+        "Scale": {"X": 10, "Y": 40, "Z": 1},
+        "Rotation": {"X": -90, "Y": 0, "Z": 0},
+        "SolidType": "Rectangle",
+        "MaterialName": "gold"
       }
     ]
   },
+
   "Materials": [
     {
       "Name": "yellow",
       "DiffuseColor": {"X": 1, "Y": 1, "Z": 0.2},
-      "kDiffuse": 0.8,
-      "kSpecular": 0.2,
-      "KTransparent": 0,
+      "kDiffuse": 0.1,
+      "kSpecular": 0.1,
+      "KTransparent": 0.9,
       "Shininess": 10,
       "RefractiveIndex": 1.2
     },
     {
       "Name": "blue",
       "DiffuseColor": {"X": 0.2, "Y": 0.3, "Z": 1},
-      "kDiffuse": 0.3,
-      "kSpecular": 0.4,
-      "KTransparent": 0.4,
+      "kDiffuse": 0.4,
+      "kSpecular": 0.5,
+      "KTransparent": 0,
       "Shininess": 150,
       "RefractiveIndex": 2.3
     },
@@ -106,8 +117,8 @@
     {
       "Name": "gold",
       "DiffuseColor": {"X": 0.3, "Y": 0.2, "Z": 0},
-      "kDiffuse": 0.01,
-      "kSpecular": 0.9,
+      "kDiffuse": 0.2,
+      "kSpecular": 0.94,
       "KTransparent": 0,
       "Shininess": 400,
       "RefractiveIndex": 1.7
@@ -115,8 +126,8 @@
     {
       "Name": "white",
       "DiffuseColor": {"X": 0.9, "Y": 0.9, "Z": 0.9},
-      "kDiffuse": 0.6,
-      "kSpecular": 0.4,
+      "kDiffuse": 0.8,
+      "kSpecular": 0.2,
       "KTransparent": 0,
       "Shininess": 80,
       "RefractiveIndex": 1.3

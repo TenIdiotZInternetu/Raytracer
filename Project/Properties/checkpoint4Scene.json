@@ -114,7 +114,7 @@
       "DiffuseColor": {"X": 0.3, "Y": 0.2, "Z": 0},
       "kDiffuse": 0.2,
       "kSpecular": 0.8,
-      "KTransparent": 0.1,
+      "KTransparent": 0,
       "Shininess": 400,
       "RefractiveIndex": 1.7
     },

@@ -1,18 +1,9 @@
 {
   "profiles": {
-    "Default": {
-      "commandName": "Project",
-      "workingDirectory": "$(ProjectDir)"
-    },
     "Debug": {
       "commandName": "Project",
       "workingDirectory": "$(ProjectDir)",
       "commandLineArgs": "--width 400 --height 300 -s 10 -o ./Outputs/Debug.pfm -t -p -c ./Properties/Checkpoint4Scene.json"
-    },
-    "Checkpoint2": {
-      "commandName": "Project",
-      "workingDirectory": "$(ProjectDir)",
-      "commandLineArgs": "-o ./Outputs/Checkpoint2.pfm -c ./Properties/checkpoint2Scene.json"
     },
     "Checkpoint4": {
       "commandName": "Project",
@@ -23,11 +14,6 @@
       "commandName": "Project",
       "workingDirectory": "$(ProjectDir)",
       "commandLineArgs": "-w 1920 -h 1080 -s 10 -o ./Outputs/FullHd.pfm -c ./Properties/checkpoint4Scene.json"
-    },
-    "MicrofacetCk2": {
-      "commandName": "Project",
-      "workingDirectory": "$(ProjectDir)",
-      "commandLineArgs": "-o ./Outputs/MicrofacetCk2.pfm -c ./Properties/microfacetScene.json"
     },
     "MicrofacetCk4": {
       "commandName": "Project",
