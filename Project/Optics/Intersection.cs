@@ -37,11 +37,14 @@ public struct Intersection
     
     public Intersection Transform(Matrix4 transformation)
     {
+        Vector3 newPosition = (Position.ToHomogenous() * transformation).To3d();
+        Vector4 normalDirectivePoint = (Position + SurfaceNormal).ToHomogenous();
+        
         return new Intersection
         {
-            Position = (Position.ToHomogenous() * transformation).To3d(),
+            Position = newPosition,
             Ray = Ray.Transform(transformation),
-            SurfaceNormal = (SurfaceNormal.ToHomogenous() * transformation).To3d().Normalized(),
+            SurfaceNormal = ((normalDirectivePoint * transformation).To3d() - newPosition).Normalized(),
             InnerMaterial = InnerMaterial,
         };
     }
