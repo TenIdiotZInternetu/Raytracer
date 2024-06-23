@@ -47,7 +47,7 @@ public class HierarchyScene : IScene
         {
             Ray transformedRay = ray.Transform(obj.InverseTransformation);
             float t = obj.Solid.FindIntersectionParameter(transformedRay);
-            if (t == Solid.MISS) continue;
+            if (t < EPSILON) continue;
             
             var localIntersection = new Intersection(transformedRay, t, obj.Solid, obj.Material);
             var worldIntersection = localIntersection.Transform(obj.Transformation);
@@ -55,8 +55,6 @@ public class HierarchyScene : IScene
             if (closestIntersection == null ||
                 worldIntersection.DistanceFromOrigin < closestIntersection?.DistanceFromOrigin)
             {
-                if (obj == _objects[3]) ;
-                
                 closestIntersection = worldIntersection;
             }
         }
