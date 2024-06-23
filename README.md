@@ -1,6 +1,6 @@
 # About
 
-A primitive Raytracing model for the Photorealistic graphics course. It runs on CPU, but support for multithreading is planned. The renderer supports reflections, refractions, thrown shadows and diffuse light. The reflectance model can be chosen between Phong and Mirofacet with variance of distribution and geometric functions. The scene is defined in a specified JSON file. Example of it's use can be found in Project/Properties. FloatImage class in the shared folder was provided by lecturers for this assignment.
+A primitive Raytracing model for the Photorealistic graphics course. It runs on CPU, but multithreading is supported. The renderer supports reflections, refractions, thrown shadows and diffuse light. The reflectance model can be chosen between Phong and Mirofacet with variance of distribution and geometric functions. The scene is defined in a specified JSON file. Example of it's use can be found in Project/Properties. FloatImage class in the shared folder was provided by lecturers for this assignment.
 
 ## Examples
 **Phong's model**  
