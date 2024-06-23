@@ -4,9 +4,9 @@ A primitive Raytracing model for the Photorealistic graphics course. It runs on 
 
 ## Examples
 **Phong's model**  
-![RTPhong](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/1b6e3ff1-c66d-48cd-aff8-e5a93a69d3b4)  
-**Microfacet model**  
-![RTMicrofacet](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/2fe747a5-7419-4f37-b2ca-67e915ccb65c)
+![PhongRT](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/18fafb77-cb68-478e-ac66-825be3e93d3c)
+**Microfacet model**
+![MicrofacetCk4](https://github.com/TenIdiotZInternetu/Raytracer/assets/90770318/56bdcebf-3610-4663-bbe1-d2dbe26c509f)
 
 
 ## Command line arguments
@@ -15,7 +15,7 @@ A primitive Raytracing model for the Photorealistic graphics course. It runs on 
 `-s | --samples` - overwrites SamplesPerPixel of the scene's camera  
 `-o | --output` - path to the output image -- (Default: "./Outputs/demo.pfm")  
 `-c | --config` - path to the configuration json file -- (Default: "./Properties/config.json")  
-`-t | --trace` - Trace scene's JSON deserialization
+`-t | --trace` - Trace scene's JSON deserialization  
 `-p | --parallel` - Turn off parallel computations
 
 ## Configuration arguments
