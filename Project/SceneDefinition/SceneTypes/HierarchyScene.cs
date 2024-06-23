@@ -41,9 +41,7 @@ public class HierarchyScene : IScene
 
     public Intersection? FindIntersection(Ray ray)
     {
-        float closestT = Solid.MISS;
-        SceneObject? intersectedObject = null;
-        Intersection? intersection = null;
+        Intersection? closestIntersection = null;
             
         foreach (var obj in _objects)
         {
@@ -51,17 +49,19 @@ public class HierarchyScene : IScene
             float t = obj.Solid.FindIntersectionParameter(transformedRay);
             if (t == Solid.MISS) continue;
             
-            if (t < closestT || t > EPSILON)
+            var localIntersection = new Intersection(transformedRay, t, obj.Solid, obj.Material);
+            var worldIntersection = localIntersection.Transform(obj.Transformation);
+            
+            if (closestIntersection == null ||
+                worldIntersection.DistanceFromOrigin < closestIntersection?.DistanceFromOrigin)
             {
-                closestT = t;
-                intersectedObject = obj;
-                intersection = new Intersection(transformedRay, t, obj.Solid, obj.Material);
+                if (obj == _objects[3]) ;
+                
+                closestIntersection = worldIntersection;
             }
         }
-        
-        if (intersection == null) return null;
-        Intersection worldIntersection = intersection.Value.Transform(intersectedObject!.Value.Transformation);
-        return worldIntersection;
+
+        return closestIntersection;
     }
 
     public bool IntersectsWithScene(Ray ray)
@@ -139,9 +139,11 @@ public class HierarchyScene : IScene
 
     private Matrix4 ConstructTransform(IHierarchySceneNode node)
     {
-        Matrix4 rotationX = Matrix4.CreateRotationX(node.Rotation.X);
-        Matrix4 rotationY = Matrix4.CreateRotationY(node.Rotation.Y);
-        Matrix4 rotationZ = Matrix4.CreateRotationZ(node.Rotation.Z);
+        Vector3 rotationRadians = node.Rotation * MathF.PI / 180;
+        
+        Matrix4 rotationX = Matrix4.CreateRotationX(rotationRadians.X);
+        Matrix4 rotationY = Matrix4.CreateRotationY(rotationRadians.Y);
+        Matrix4 rotationZ = Matrix4.CreateRotationZ(rotationRadians.Z);
         
         Matrix4 scale = (node.Scale == Vector3.Zero) ? Matrix4.Identity : Matrix4.CreateScale(node.Scale);
         Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
