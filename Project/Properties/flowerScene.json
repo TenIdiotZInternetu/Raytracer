@@ -4,7 +4,12 @@
     "Tag": "RAYTRACE",
     "MaxDepth": 6
   },
-  "Brdf": {"Tag": "PHONG"},
+  "Brdf": {
+    "Tag": "MICROFACET",
+    "FresnelFunction": "Schlicks",
+    "DistributionFunction": "GGX",
+    "GeometryFunction": "GGX"
+  },
   "Scene": {
     "Tag": "TREE",
     "BackgroundColor": {"X": 0.1, "Y": 0.2, "Z": 0.3},
@@ -14,7 +19,7 @@
       "Up": {"X": 0, "Y": 1, "Z": 0.0},
       "ScreenDistance": 1,
       "ViewingDistance": 1000,
-      "Fov": 40,
+      "Fov": 90,
       "ResolutionWidth": 600,
       "ResolutionHeight": 450,
       "SamplesPerPixel": 10,
@@ -37,16 +42,84 @@
     "Tree": [
       {
         "Tag": "SOLID",
-        "Position": {"X": 0, "Y": -10, "Z": 0},
+        "Translation": {"X": 0, "Y": -5, "Z": 0},
         "Scale": {"X": 30, "Y": 1, "Z": 30},
         "MaterialName": "white",
         "SolidType": "Rectangle"
       },
       {
         "Tag": "INNER",
-        "Position": {"X": 0, "Y": 0, "Z": 1000},
+        "Translation": {"X": 0, "Y": 0, "Z": 8},
         "Children": [
-          
+          {
+            "Tag": "SOLID",
+            "MaterialName": "blue",
+            "SolidType": "Sphere",
+            "Scale": {"X": 1, "Y": 1, "Z": 1}
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 4, "Y": 0, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "SolidType": "Sphere",
+            "MaterialName": "blue"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 2, "Y": -2, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 45},
+            "MaterialName": "yellow",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 0, "Y": -4, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 90},
+            "MaterialName": "yellow",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -2, "Y": -2, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 135},
+            "MaterialName": "yellow",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -4, "Y": 0, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 180},
+            "MaterialName": "blue",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": -2, "Y": 2, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 215},
+            "MaterialName": "blue",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 0, "Y": 4, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 270},
+            "MaterialName": "blue",
+            "SolidType": "Sphere"
+          },
+          {
+            "Tag": "SOLID",
+            "Translation": {"X": 2, "Y": 2, "Z": 0},
+            "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
+            "Rotation": {"X": 0, "Y": 0, "Z": 315},
+            "MaterialName": "blue",
+            "SolidType": "Sphere"
+          }
         ]
       }
     ]
@@ -66,8 +139,8 @@
       "Name": "blue",
       "DiffuseColor": {"X": 0.2, "Y": 0.3, "Z": 1},
       "kDiffuse": 0.3,
-      "kSpecular": 0.4,
-      "KTransparent": 0.3,
+      "kSpecular": 0.7,
+      "KTransparent": 0,
       "Shininess": 150,
       "RefractiveIndex": 2.3
     },
