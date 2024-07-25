@@ -2,7 +2,7 @@
   "Author": "Adam Balko",
   "Renderer": {
     "Tag": "RAYTRACE",
-    "MaxDepth": 6
+    "MaxDepth": 10
   },
   "Brdf": {
     "Tag": "MICROFACET",
@@ -28,13 +28,13 @@
     "LightSources": [
       {
         "Tag": "POINT",
-        "Position": {"X": -3, "Y": 10, "Z": 15},
-        "BaseColor": {"X": 1, "Y": 1, "Z": 1},
+        "Position": {"X": 3, "Y": 6, "Z": 15},
+        "BaseColor": {"X": 1, "Y": 0.2, "Z": 0.7},
         "Intensity": 0.6
       },
       {
         "Tag": "POINT",
-        "Position": {"X": -10, "Y": 7, "Z": -20},
+        "Position": {"X": -2, "Y": 15, "Z": -20},
         "BaseColor": {"X": 0.4, "Y": 0.4, "Z": 1},
         "Intensity": 1
       }
@@ -43,7 +43,7 @@
       {
         "Tag": "SOLID",
         "Translation": {"X": 0, "Y": -5, "Z": 0},
-        "Scale": {"X": 30, "Y": 1, "Z": 30},
+        "Scale": {"X": 30, "Y": 1, "Z": 60},
         "MaterialName": "white",
         "SolidType": "Rectangle"
       },
@@ -133,7 +133,7 @@
       "kSpecular": 0.1,
       "KTransparent": 0.9,
       "Shininess": 10,
-      "RefractiveIndex": 1.2
+      "RefractiveIndex": 1.1
     },
     {
       "Name": "blue",
