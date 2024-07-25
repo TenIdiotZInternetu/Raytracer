@@ -54,7 +54,7 @@ public class Camera
     {
         var rayBatches = new RayBatch[ResolutionWidth, ResolutionHeight];
 
-        if (!_isInitialized) Initialiaze();
+        if (!_isInitialized) Initialize();
         
         foreach (Vector2 pixel in VectorHelper.IterateRectangle(ResolutionWidth, ResolutionHeight))
         {
@@ -68,7 +68,7 @@ public class Camera
         return rayBatches;
     }
     
-    private void Initialiaze()
+    private void Initialize()
     {
         if (Vector3.Dot(Forward, Up) > 1e06)
         {
