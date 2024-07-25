@@ -1,0 +1,84 @@
+{
+  "Author": "Adam Balko",
+  "Renderer": {
+    "Tag": "RAYTRACE",
+    "MaxDepth": 6
+  },
+  "Brdf": {"Tag": "PHONG"},
+  "Scene": {
+    "Tag": "TREE",
+    "BackgroundColor": {"X": 0.1, "Y": 0.2, "Z": 0.3},
+    "Camera": {
+      "Position": {"X": 0, "Y": 0, "Z": 0},
+      "Forward": {"X": 0, "Y": 0, "Z": 1},
+      "Up": {"X": 0, "Y": 1, "Z": 0.0},
+      "ScreenDistance": 1,
+      "ViewingDistance": 1000,
+      "Fov": 40,
+      "ResolutionWidth": 600,
+      "ResolutionHeight": 450,
+      "SamplesPerPixel": 10,
+      "Sampler": {"Tag": "HAMMERSLEY"}
+    },
+    "LightSources": [
+      {
+        "Tag": "POINT",
+        "Position": {"X": -3, "Y": 10, "Z": 15},
+        "BaseColor": {"X": 1, "Y": 1, "Z": 1},
+        "Intensity": 0.6
+      },
+      {
+        "Tag": "POINT",
+        "Position": {"X": -10, "Y": 7, "Z": -20},
+        "BaseColor": {"X": 0.4, "Y": 0.4, "Z": 1},
+        "Intensity": 1
+      }
+    ],
+    "Tree": [
+      {
+        "Tag": "SOLID",
+        "Position": {"X": 0, "Y": -10, "Z": 0},
+        "Scale": {"X": 30, "Y": 1, "Z": 30},
+        "MaterialName": "white",
+        "SolidType": "Rectangle"
+      },
+      {
+        "Tag": "INNER",
+        "Position": {"X": 0, "Y": 0, "Z": 1000},
+        "Children": [
+          
+        ]
+      }
+    ]
+  },
+    
+  "Materials": [
+    {
+      "Name": "yellow",
+      "DiffuseColor": {"X": 1, "Y": 1, "Z": 0.2},
+      "kDiffuse": 0.1,
+      "kSpecular": 0.1,
+      "KTransparent": 0.9,
+      "Shininess": 10,
+      "RefractiveIndex": 1.2
+    },
+    {
+      "Name": "blue",
+      "DiffuseColor": {"X": 0.2, "Y": 0.3, "Z": 1},
+      "kDiffuse": 0.3,
+      "kSpecular": 0.4,
+      "KTransparent": 0.3,
+      "Shininess": 150,
+      "RefractiveIndex": 2.3
+    },
+    {
+      "Name": "white",
+      "DiffuseColor": {"X": 0.9, "Y": 0.9, "Z": 0.9},
+      "kDiffuse": 0.8,
+      "kSpecular": 0.2,
+      "KTransparent": 0,
+      "Shininess": 80,
+      "RefractiveIndex": 1.3
+    }
+  ]
+}
