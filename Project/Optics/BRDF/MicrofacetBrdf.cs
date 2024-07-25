@@ -96,22 +96,24 @@ public class MicrofacetBrdf : Brdf
     {
         if (!_isInitialized) Initialize();
 
-        var args = new Arguments(lightDirection, point, Arguments.Mode.Transmission);
+        // var args = new Arguments(lightDirection, point, Arguments.Mode.Transmission);
+        //
+        // float n1 = point.OuterMaterial.RefractiveIndex;
+        // float n2 = point.InnerMaterial.RefractiveIndex;
+        //
+        // float fresnelTerm = 1 - _fresnelFunction!(args);
+        // float distributionTerm = _distributionTFunction!(args);
+        // float geometryTerm = _geometryFunction!(args);
+        //
+        // float cosineFraction = MathF.Abs(args.lhCosine * args.vhCosine / args.nlCosine * args.nhCosine);
+        // float microfacetTerms = fresnelTerm * distributionTerm * geometryTerm;
+        // float denomTerm = n1 * args.vhCosine + n2 * args.lhCosine;
+        //
+        // float transmittance = n2 * n2 * cosineFraction * microfacetTerms / (denomTerm * denomTerm);
+        //
+        // return Math.Clamp(transmittance, 0, 1);
 
-        float n1 = point.OuterMaterial.RefractiveIndex;
-        float n2 = point.InnerMaterial.RefractiveIndex;
-
-        float fresnelTerm = 1 - _fresnelFunction!(args);
-        float distributionTerm = _distributionTFunction!(args);
-        float geometryTerm = _geometryFunction!(args);
-        
-        float cosineFraction = MathF.Abs(args.lhCosine * args.vhCosine / args.nlCosine * args.nhCosine);
-        float microfacetTerms = fresnelTerm * distributionTerm * geometryTerm;
-        float denomTerm = n1 * args.vhCosine + n2 * args.lhCosine;
-
-        float transmittance = n2 * n2 * cosineFraction * microfacetTerms / (denomTerm * denomTerm);
-        
-        return Math.Clamp(transmittance, 0, 1);
+        return point.InnerMaterial.KTransparent;
     }
 
     private float SchlicksFresnel(Arguments args)
