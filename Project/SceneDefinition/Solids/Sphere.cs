@@ -43,8 +43,7 @@ public class Sphere : Solid
         float further = MathF.Max(solutions.Root1, solutions.Root2);
         
         float distance = closer;
-        if (distance < EPSILON) distance = further;
-        if (distance < EPSILON) return MISS;
+        if (distance < 0) return MISS;
 
         return distance;
     }

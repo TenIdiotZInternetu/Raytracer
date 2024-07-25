@@ -13,7 +13,7 @@
     "FullHd": {
       "commandName": "Project",
       "workingDirectory": "$(ProjectDir)",
-      "commandLineArgs": "-w 1920 -h 1080 -s 10 -o ./Outputs/FullHd.pfm -c ./Properties/checkpoint4Scene.json"
+      "commandLineArgs": "-w 1920 -h 1080 -s 10 -o ./Outputs/FullHd.pfm -c ./Properties/flowerScene.json"
     },
     "MicrofacetCk4": {
       "commandName": "Project",

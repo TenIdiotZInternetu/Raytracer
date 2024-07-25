@@ -40,7 +40,7 @@ public class Rectangle : Solid
             -(Vector3.Dot(ray.Origin, Normal) + _dParameter)
             / Vector3.Dot(ray.Direction, Normal);
         
-        if (rayIntersectionDistance < EPSILON) return MISS;
+        if (rayIntersectionDistance < 0) return MISS;
         
         Vector3 intersectionPoint = ray.At(rayIntersectionDistance);
 

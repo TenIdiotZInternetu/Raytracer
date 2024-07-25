@@ -9,7 +9,6 @@ namespace rt004.SceneDefinition.Solids;
 public abstract class Solid
 {
     public const float MISS = -1;
-    protected const float EPSILON = 1e-4f;
 
     [JsonProperty] public Vector3 Position { get; protected set; }
     [JsonProperty] public string MaterialTag { get; protected set; }
