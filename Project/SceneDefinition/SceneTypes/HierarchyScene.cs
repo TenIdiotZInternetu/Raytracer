@@ -146,6 +146,6 @@ public class HierarchyScene : IScene
         Matrix4 scale = (node.Scale == Vector3.Zero) ? Matrix4.Identity : Matrix4.CreateScale(node.Scale);
         Matrix4 translation = Matrix4.CreateTranslation(node.Translation);
         
-        return rotationX * rotationY * rotationZ * scale * translation;
+        return scale * rotationX * rotationY * rotationZ * translation;
     }
 }
