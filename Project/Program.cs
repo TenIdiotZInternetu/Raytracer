@@ -33,7 +33,7 @@ internal class Program
         Console.WriteLine(config.Author);
       });
     }
-    catch (ArgumentException e)
+    catch (InvalidOptionException e)
     {
       Console.WriteLine(e.Message);
     }
@@ -43,14 +43,14 @@ internal class Program
   {
     if (!File.Exists(options.ConfigFile))
     {
-      throw new ArgumentException("Configuration file could not be found.");
+      throw new InvalidOptionException("Configuration file could not be found.");
     }
 
     string outputDirectory = Path.GetDirectoryName(options.OutputFile)!;
     
     if (!Directory.Exists(outputDirectory))
     {
-      throw new ArgumentException("Output file could not be found.");
+      throw new InvalidOptionException("Output file could not be found.");
     }
   }
 }

@@ -28,3 +28,8 @@ public class Options
     public bool ResolutionSet => Width > 0 && Height > 0;
     public bool SamplesSet => SamplesPerPixel > 0;
 }
+
+public class InvalidOptionException : Exception
+{
+    public InvalidOptionException(string message) : base(message) {}
+}
