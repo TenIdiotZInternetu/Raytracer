@@ -7,8 +7,8 @@
   "Brdf": {
     "Tag": "MICROFACET",
     "FresnelFunction": "Schlicks",
-    "DistributionFunction": "GGX",
-    "GeometryFunction": "GGX"
+    "DistributionFunction": "BlinnPhong",
+    "GeometryFunction": "Beckmann"
   },
   "Scene": {
     "Tag": "TREE",

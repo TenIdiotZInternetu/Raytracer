@@ -165,15 +165,16 @@ public class MicrofacetBrdf : Brdf
     // Equation 27
     private float BeckmannGeometry(Arguments args)
     {
-        if (args.vhCosine / args.nvCosine < 0) return 0;
-        if (args.lhCosine / args.lhCosine < 0) return 0;
+        if (args.vhCosine <= 0 || args.nvCosine <= 0) return 0;
 
         Func<float, float> smithG1 = dhCosine =>
         {
-            float dhCosine2 = args.nvCosine * args.nvCosine;
+            float dhCosine2 = dhCosine * dhCosine;
             float dhTangent2 = (1 - dhCosine2) / dhCosine2;
 
-            float param = 1 / args.Roughness * MathF.Sqrt(dhTangent2);
+            if (dhTangent2 <= 0) return 1;                          // Can occur thanks to rounding errors
+            
+            float param = 1 / (args.Roughness * MathF.Sqrt(dhTangent2));
 
             if (param >= 1.6) return 1;
 
@@ -188,8 +189,7 @@ public class MicrofacetBrdf : Brdf
     // Equations 23 and 34
     private float GGXGeometry(Arguments args)
     {
-        if (args.vhCosine / args.nvCosine < 0) return 0;
-        if (args.lhCosine / args.lhCosine < 0) return 0;
+        if (args.vhCosine <= 0 || args.nvCosine <= 0) return 0;
 
         Func<float, float> smithG1 = dhCosine =>
         {
