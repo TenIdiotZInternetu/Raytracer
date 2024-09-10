@@ -62,7 +62,7 @@
             "Translation": {"X": 4, "Y": 0, "Z": 0},
             "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
             "SolidType": "Sphere",
-            "MaterialName": "blue"
+            "MaterialName": "red"
           },
           {
             "Tag": "SOLID",
@@ -109,7 +109,7 @@
             "Translation": {"X": 0, "Y": 4, "Z": 0},
             "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
             "Rotation": {"X": 0, "Y": 0, "Z": 270},
-            "MaterialName": "blue",
+            "MaterialName": "red",
             "SolidType": "Sphere"
           },
           {
@@ -117,7 +117,7 @@
             "Translation": {"X": 2, "Y": 2, "Z": 0},
             "Scale": {"X": 1, "Y": 0.5, "Z": 0.5},
             "Rotation": {"X": 0, "Y": 0, "Z": 315},
-            "MaterialName": "blue",
+            "MaterialName": "red",
             "SolidType": "Sphere"
           }
         ]
@@ -143,6 +143,15 @@
       "KTransparent": 0,
       "Shininess": 150,
       "RefractiveIndex": 2.3
+    },
+    {
+      "Name": "red",
+      "DiffuseColor": {"X": 0.8, "Y": 0.2, "Z": 0.2},
+      "kDiffuse": 0.9,
+      "kSpecular": 0.2,
+      "KTransparent": 0,
+      "Shininess": 80,
+      "RefractiveIndex": 2.2
     },
     {
       "Name": "white",
