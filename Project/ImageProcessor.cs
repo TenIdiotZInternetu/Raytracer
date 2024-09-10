@@ -39,9 +39,6 @@ public static class ImageProcessor
     {
         foreach (var rayBatch in rayBatches)
         {
-            if (rayBatch is { PixelX: 260, PixelY: 0 })
-                ;
-            
             float[] color = _renderer.GetPixelColor(rayBatch);
             _image.PutPixel(rayBatch.PixelX, rayBatch.PixelY, color);
         }
