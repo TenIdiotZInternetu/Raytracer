@@ -130,8 +130,9 @@ public class MicrofacetBrdf : Brdf
     private float BlinnPhongDistribution(Arguments args)
     {
         if (args.nhCosine <= 0) return 0;
-        
-        float distributionTerm = (args.Roughness + 2) * MathF.Pow(args.nhCosine, args.Roughness) / (2 * MathF.PI);
+
+        float exponent = MathF.Pow(2 * args.Roughness, -2) - 2;
+        float distributionTerm = (args.Roughness + 2) * MathF.Pow(args.nhCosine, exponent) / (2 * MathF.PI);
         return distributionTerm;
     }
 
@@ -165,16 +166,19 @@ public class MicrofacetBrdf : Brdf
     // Equation 27
     private float BeckmannGeometry(Arguments args)
     {
-        if (args.vhCosine <= 0 || args.nvCosine <= 0) return 0;
-
-        Func<float, float> smithG1 = dhCosine =>
+        Func<Vector3, float> smithG1 = direction =>
         {
-            float dhCosine2 = dhCosine * dhCosine;
-            float dhTangent2 = (1 - dhCosine2) / dhCosine2;
+            float dnCosine = Vector3.Dot(direction, args.Normal);
+            float dhCosine = Vector3.Dot(direction, args.HalfVector);
 
-            if (dhTangent2 <= 0) return 1;                          // Can occur thanks to rounding errors
+            if (dhCosine <= 0 || dnCosine <= 0) return 0;
             
-            float param = 1 / (args.Roughness * MathF.Sqrt(dhTangent2));
+            float dnCosine2 = dnCosine * dnCosine;
+            float dnTangent2 = (1 - dnCosine2) / dnCosine2;
+
+            if (dnTangent2 <= 0) return 1;                          // Can occur thanks to rounding errors
+            
+            float param = 1 / (args.Roughness * MathF.Sqrt(dnTangent2));
 
             if (param >= 1.6) return 1;
 
@@ -183,25 +187,28 @@ public class MicrofacetBrdf : Brdf
             return g1Term;
         };
         
-        return smithG1(args.lhCosine) * smithG1(args.vhCosine);
+        return smithG1(args.LightDirection) * smithG1(args.ViewDirection);
     }
 
     // Equations 23 and 34
     private float GGXGeometry(Arguments args)
     {
-        if (args.vhCosine <= 0 || args.nvCosine <= 0) return 0;
-
-        Func<float, float> smithG1 = dhCosine =>
+        Func<Vector3, float> smithG1 = direction =>
         {
-            float rSquared = args.Roughness * args.Roughness;
-            float dhCosine2 = dhCosine * dhCosine;
-            float dhTangent2 = (1 - dhCosine2) / dhCosine2;
+            float dnCosine = Vector3.Dot(direction, args.Normal);
+            float dhCosine = Vector3.Dot(direction, args.HalfVector);
 
-            float g1Term = 2 / (1 + MathF.Sqrt(1 + rSquared * dhTangent2));
+            if (dhCosine <= 0 || dnCosine <= 0) return 0;
+            
+            float rSquared = args.Roughness * args.Roughness;
+            float dnCosine2 = dnCosine * dnCosine;
+            float dnTangent2 = (1 - dnCosine2) / dnCosine2;
+
+            float g1Term = 2 / (1 + MathF.Sqrt(1 + rSquared * dnTangent2));
             return g1Term;
         };
 
-        return smithG1(args.lhCosine) * smithG1(args.vhCosine);
+        return smithG1(args.LightDirection) * smithG1(args.ViewDirection);
     }
 
     private void Initialize()
